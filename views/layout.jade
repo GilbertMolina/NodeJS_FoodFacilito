@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+	head
+		title ¡El mejor lugar del mundo!
+		meta(charset="utf-8")
+		link(href="/bootstrap311/css/bootstrap.min.css" rel="stylesheet")
+		link(href="/css/main.css" rel="stylesheet" type="text/css")
+		link(href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css")
+		link(href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css")
+		link(href="/css/animate.css" rel="stylesheet" type="text/css")
+	body
+		nav(class="large-padding fondo-gris text-center")
+			ul(class="no-list mediano")
+				li(class="pacifico col-md-4 inline-block")
+					a(href="/" class="green") Food Facilito #[small(class="lato small") Vive, convive y diviértete]
+				li(class="col-md-2 inline-block")
+					a(href="/menu") Menú
+				li(class="col-md-2 inline-block")
+					a(href="/contacto") Contáctenos
+				li(class="col-md-2 inline-block")
+					a(href="/admin") Administrador
+				li(class="col-md-2 inline-block")
+					a(href="/acercade") Acerca de
+		container
+			block contenido

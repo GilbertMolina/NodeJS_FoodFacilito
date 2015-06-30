@@ -1,0 +1,11 @@
+extends ../layout.jade
+block contenido
+	div(class="col-md-7 center-block no-float top-space text-left animated fadeInUp")
+		h1(class="pacifico big blue") Inicio de sesión para Administradores
+		form(method="post" action="/admin" style="margin-top:1.5em")
+			div(class="col-md-7 center-block no-float")
+				div(class="form-group")
+					label Contraseña
+					input(type="password" name="password" placeholder="Contraseña del Administrador" class="form-control")
+				div(class="form-group text-right")
+					input(type="submit" class="btn btn-success" value="Iniciar sesión")
