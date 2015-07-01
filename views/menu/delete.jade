@@ -3,7 +3,7 @@ block contenido
 	div(class="col-md-5 center-block no-float top-space text-left")
 		center
 			h1(class="pacifico big blue")  Eliminar producto
-		form(method="post" action="/menu/delete/#{ product.id }?_method=put" style="margin-top:1.5em" enctype="multipart/form-data")
+		form(method="post" action="/menu/#{ product.id }?_method=delete" style="margin-top:1.5em")
 			div(class="form-group")
 				label Nombre
 				input(type="text" name="title" placeholder="Nombre del producto" value="#{ product.title }" class="form-control" readonly)

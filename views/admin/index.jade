@@ -9,7 +9,6 @@ block contenido
 			caption(class="text-right") #[a(href="/menu/add" class="btn btn-success" style="margin-right:1em") #[img(src="imgs/add.png")] Agregar nuevo]
 			thead
 				tr
-					th Identificador producto
 					th Nombre
 					th Descripción
 					th Precio
@@ -18,7 +17,6 @@ block contenido
 			tbody
 				each product in products
 					tr
-						td= product.id
 						td= product.title
 						td= product.description
 						td= product.pricing

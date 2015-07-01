@@ -86,11 +86,11 @@ app.post("/menu/add", function(req,res){
 		cloudinary.uploader.upload(req.files.image_product.path, function(result) { 
 			product.imageURL = result.url;
 			product.save(function(err){
-				res.redirect("/menu");
+				res.redirect("/admin");
 			});
 		});
 	}else{
-		res.redirect("menu/add");
+		res.redirect("/admin");
 	}
 });
 
@@ -102,8 +102,9 @@ app.get("/menu/edit/:id", function(req,res){
 	});
 });
 
-// Se define la ruta put "/menu/edit/:id" la cual va a ser utilizada por el servidor para editar los productos
-app.put("/menu/edit/:id", function(req,res){
+// Se define la ruta put "/menu/:id" la cual va a ser utilizada por el servidor para editar los productos
+app.put("/menu/:id", function(req,res){
+	var id_product = req.params.id;
 	if (req.body.password == app_password) {
 		var data = {
 			title: req.body.title,
@@ -111,12 +112,11 @@ app.put("/menu/edit/:id", function(req,res){
 			pricing: req.body.pricing
 		};
 
-		var id_product = req.params.id;
 		Product.update({_id: id_product}, data, function(){
-			res.redirect("/menu");
+			res.redirect("/admin");
 		});
 	}else{
-		res.redirect("/");
+		res.redirect("/admin");
 	}
 });
 
@@ -128,21 +128,19 @@ app.get("/menu/delete/:id", function(req,res){
 	});
 });
 
-// Se define la ruta put "/menu/delete/:id" la cual va a ser utilizada por el servidor para eliminar los productos
-app.put("/menu/delete/:id", function(req,res){
+// Se define la ruta put "/menu/:id" la cual va a ser utilizada por el servidor para eliminar los productos
+app.delete("/menu/:id", function(req,res){
+	var id_product = req.params.id;
 	if (req.body.password == app_password) {
-		var data = {
-			title: req.body.title,
-			description: req.body.description,
-			pricing: req.body.pricing
-		};
-
-		var id_product = req.params.id;
-		Product.remove({_id: id_product}, function(){
-			res.redirect("/menu");
+		Product.remove({_id: id_product}, function(err){
+			if(err){
+				console.log(err);
+			}else{
+				res.redirect("/admin");
+			}
 		});
 	}else{
-		res.redirect("/");
+		res.redirect("/admin");
 	}
 });
 
@@ -176,4 +174,5 @@ app.post("/admin", function(req,res){
 	}});
 
 // Se define que el servidor va a estar escuchando en el puerto "8080"
-app.listen(8080);
+app.set('port', process.env.PORT || 8080);
+app.listen(app.get('port'));
