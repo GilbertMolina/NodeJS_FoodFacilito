@@ -2,28 +2,31 @@ extends ../layout.jade
 block contenido
 	center
 		h2(class="pacifico big blue") Panel de Administración
+		p #[strong Productos actuales]
 		br
-		div(class="text-right")
-		table(class="table table-bordered table-condensed table-hover")
-			caption(class="text-center") Productos actuales
-			caption(class="text-right") #[a(href="/menu/add" class="btn btn-success" style="margin-right:1em") #[img(src="imgs/add.png")] Agregar nuevo]
-			thead
-				tr
-					th Nombre
-					th Descripción
-					th Precio
-					th Imágenes
-					th Acciones
-			tbody
-				each product in products
-					tr
-						td= product.title
-						td= product.description
-						td= product.pricing
-						td
-							a(href="#{ product.imageURL }" class="btn btn-info") Ver imagen
-						td
-							a(href="/menu/edit/#{ product.id }") #[img(src="imgs/edit.png")] 
-							=" - "
-							a(href="/menu/delete/#{ product.id }") #[img(src="imgs/delete.png")]
+		div(class="row")
+			div(class="col-md-10")
+			div(class="col-md-2")
+				a(class="btn btn-success" href="/menu/add" style="margin-right:-22px") #[img(src="imgs/add.png")]   Agregar nuevo
+		div(class="row")
+			div(class="col-md-12")
+				table(class="table table-bordered table-condensed table-hover")
+					thead
+						tr
+							th Nombre
+							th Descripción
+							th Precio
+							th Imágenes
+							th Acciones
+					tbody
+						each product in products
+							tr
+								td= product.title
+								td= product.description
+								td ¢#{product.pricing}
+								td
+									a(href="#{ product.imageURL }" class="btn btn-info") Ver imagen
+								td
+									a(href="/menu/edit/#{ product.id }" class="col-md-6 text-center") #[img(src="imgs/edit.png")] 
+									a(href="/menu/delete/#{ product.id }" class="col-md-6 text-center") #[img(src="imgs/delete.png")]
 

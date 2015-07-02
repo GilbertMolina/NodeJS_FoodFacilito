@@ -9,7 +9,7 @@ html(lang="en")
 		link(href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css")
 		link(href="/css/animate.css" rel="stylesheet" type="text/css")
 	body
-		nav(class="large-padding fondo-gris text-center")
+		nav(class="large-padding fondo-gris text-center animated bounceInDown delay-0")
 			ul(class="no-list mediano")
 				li(class="pacifico col-md-4 inline-block")
 					a(href="/" class="green") Food Facilito #[small(class="lato small") Vive, convive y diviértete]
@@ -18,8 +18,11 @@ html(lang="en")
 				li(class="col-md-2 inline-block")
 					a(href="/contacto") Contáctenos
 				li(class="col-md-2 inline-block")
-					a(href="/admin") Administrador
+					if (session == "" || session == undefined)
+						a(href="/login") Login
+					else
+						a(href="/logout") Logout
 				li(class="col-md-2 inline-block")
 					a(href="/acercade") Acerca de
-		container
+		div(class="container")
 			block contenido
