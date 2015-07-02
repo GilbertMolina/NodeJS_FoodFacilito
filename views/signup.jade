@@ -14,12 +14,12 @@ block contenido
 				input(type="password" name="password" placeholder="Contraseña" class="form-control")
 			div(class="form-group")
 				label Confirme su contraseña
-				input(type="password" name="confirm_password" placeholder="Contraseña" class="form-control")
+				input(type="password" name="confirm_password" placeholder="Confirme la contraseña" class="form-control")
 			div(class="col-md-12 #{ visualizacionError }")
 				ul(class="list-group text-center")
 					li(class="list-group-item list-group-item-danger")
 						h4= usuarioExistente
 			div(class="form-group text-right")
-				a(href="javascript:history.back()" class="btn btn-default col-md-3 text-left") Volver Atrás
+				a(href="login" class="btn btn-default col-md-3 text-left") Volver Atrás
 				input(type="submit" class="btn btn-success col-md-2 col-md-offset-7 text-right" value="Registrar")
 	div(class="col-md-6")
