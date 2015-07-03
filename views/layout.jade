@@ -8,21 +8,32 @@ html(lang="en")
 		link(href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css")
 		link(href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css")
 		link(href="/css/animate.css" rel="stylesheet" type="text/css")
+		script(src="/js/jquery-2.1.1.min.js")
+		script(src="/bootstrap311/js/bootstrap.min.js")
 	body
-		nav(class="large-padding fondo-gris text-center animated bounceInDown delay-0")
-			ul(class="no-list mediano")
-				li(class="pacifico col-md-4 inline-block")
-					a(href="/" class="green") Food Facilito #[small(class="lato small") Vive, convive y diviértete]
-				li(class="col-md-2 inline-block")
-					a(href="/menu") Menú
-				li(class="col-md-2 inline-block")
-					a(href="/contacto") Contáctenos
-				li(class="col-md-2 inline-block")
-					if (session == "" || session == undefined)
-						a(href="/login") Login
-					else
-						a(href="/logout") Logout
-				li(class="col-md-2 inline-block")
-					a(href="/acercade") Acerca de
 		div(class="container")
-			block contenido
+			div(class="nav-header")
+				ul(class="no-list mediano")
+					li(class="pacifico col-md-4")
+						a(href="/" class="green") Food Facilito #[small(class="lato small") Vive, convive y diviértete]
+			div(class="collapse navbar-collapse")
+				ul(class="nav navbar-nav navbar-right")
+					li
+						a(href="/menu") Menú
+					li
+						a(href="/contacto") Contáctenos
+					li
+						a(href="/acercade") Acerca de
+					li(class="dropdown")
+						if (session == "" || session == undefined)
+							a(href="/login") Login
+						else
+							a(href="#" class="dropdown-toggle" data-toggle="dropdown") #{ session } #[span(class="caret")]
+							ul(class="dropdown-menu" role="menu")
+								li
+									a(href="/admin") Administrador
+								li
+									a(href="/logout") Logout
+				br
+				br
+				block contenido
