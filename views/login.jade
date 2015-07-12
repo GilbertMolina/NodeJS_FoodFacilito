@@ -1,18 +1,18 @@
 extends layout.jade
 block contenido
 	div(class="row")
-		div(class="col-md-4")
-		div(class="col-md-4 center-block no-float top-space text-left animated rubberBand")
+		div(class="col-md-5 center-block no-float top-space text-left animated rubberBand")
 			div(class="panel panel-default")
 				div(class="panel-title pacifico big blue text-center") Inicio de sesión
 				div(class="panel-body") 
-					form(method="post" action="/login" style="margin-top:1.5em")
+					form(method="post" action="/login" style="margin-top:1em")
 						div(class="form-group")
 							label Nombre de usuario
 							input(type="text" name="username" placeholder="Digite el nombre de usuario" class="form-control")
 						div(class="form-group")
 							label Contraseña
 							input(type="password" name="password" placeholder="Digite la contraseña" class="form-control")
+							hr
 						div(class="col-md-12 #{ visualizacionError }")
 							ul(class="list-group text-center")
 								li(class="list-group-item list-group-item-danger")
@@ -21,4 +21,3 @@ block contenido
 								a(type="submit" href="signup" class="btn btn-primary") ¿Desea registrarse?
 						div(class="form-group text-right col-md-6")
 								input(type="submit" class="btn btn-success" value="Iniciar sesión")
-		div(class="col-md-4")

@@ -2,7 +2,7 @@ extends ../layout.jade
 block contenido
 	center
 		h2(class="pacifico big blue") Panel de Administración
-		p #[strong Productos actuales]
+		p #[strong { #{ countProducts } } Productos actualmente]
 		br
 		div(class="row")
 			div(class="col-md-10")
@@ -23,7 +23,7 @@ block contenido
 							tr
 								td= product.title
 								td= product.description
-								td ¢#{product.pricing}
+								td ¢#{ product.pricing }
 								td
 									a(href="#{ product.imageURL }" class="btn btn-info") Ver imagen
 								td

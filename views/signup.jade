@@ -7,14 +7,21 @@ block contenido
 			br
 		form(method="post" action="/signup" style="margin-top:1.5em")
 			div(class="form-group")
-				label Nombre de usuario
-				input(type="text" name="username" placeholder="Nombre del usuario" class="form-control")
+				label Nombre
+				input(type="text" name="firstName" placeholder="Nombre" class="form-control")
+			div(class="form-group")
+				label Apellido
+				input(type="text" name="lastName" placeholder="Apellido" class="form-control")
+			div(class="form-group")
+				label Username
+				input(type="text" name="username" placeholder="Username" class="form-control")
 			div(class="form-group")
 				label Contraseña
 				input(type="password" name="password" placeholder="Contraseña" class="form-control")
 			div(class="form-group")
-				label Confirme su contraseña
+				label Confirme la contraseña
 				input(type="password" name="confirm_password" placeholder="Confirme la contraseña" class="form-control")
+				hr
 			div(class="col-md-12 #{ visualizacionError }")
 				ul(class="list-group text-center")
 					li(class="list-group-item list-group-item-danger")
