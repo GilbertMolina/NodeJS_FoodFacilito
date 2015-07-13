@@ -60,12 +60,20 @@ var db = mongoose.connection;
 // Se utiliza el métido 'Schema' de Mongoose
 var Schema = mongoose.Schema;
 
-//Definir el esquema de los productos, el cual va a ser utilizado por MongoDB
+// Se define el esquema de los productos, el cual va a ser utilizado por MongoDB
 var productSchema = new Schema({
 	title: String,
 	description: String,
 	imageURL: String,
 	pricing: Number
+});
+
+// Se define un atributo virtual del esquema ProductSchema para MongoDB
+productSchema.virtual("image_url").get(function(){
+	if (this.imageURL === "" || this.imageURL === "default.png") {
+		return "default.png";
+	}
+	return this.imageURL;
 });
 
 // Se declara el objeto 'Product' para poder utilizarlo en las rutas
@@ -119,18 +127,26 @@ app.post("/menu/add", verificarAutenticacionPaginas, function(req,res){
 	var data = {
 		title: req.body.title,
 		description: req.body.description,
-		imageURL: "data.png",
+		imageURL: "default.png",
 		pricing: req.body.pricing
 	};
 
 	var product = new Product(data);
 
-	cloudinary.uploader.upload(req.files.image_product.path, function(result) {
-		product.imageURL = result.url;
+	// Se verifica si se seleccionó una imagen, si es asi se sube a Cloudinary
+	if (req.files.hasOwnProperty("image_product")) {
+		cloudinary.uploader.upload(req.files.image_product.path, function(result) {
+			product.imageURL = result.url;
+			product.save(function(err){
+				res.redirect("/admin");
+			});
+		});
+	// Si no, guarda el producto con la imagen temporal alojada prviamente en Cloudinary
+	} else {
 		product.save(function(err){
 			res.redirect("/admin");
 		});
-	});
+	}
 });
 
 // Se define la ruta get "/menu/edit/:id" la cual va a ser utilizada por el servidor para editar los productos
@@ -154,9 +170,18 @@ app.put("/menu/:id", verificarAutenticacionPaginas, function(req,res){
 		pricing: req.body.pricing
 	};
 
-	Product.update({_id: id_product}, data, function(){
-		res.redirect("/admin");
-	});
+	if (req.files.hasOwnProperty("image_product")) {
+		cloudinary.uploader.upload(req.files.image_product.path, function(result) {
+			data.imageURL = result.url;
+			Product.update({_id: id_product}, data, function(){
+				res.redirect("/admin");
+			});
+		});
+	} else {
+		Product.update({_id: id_product}, data, function(){
+			res.redirect("/admin");
+		});
+	}
 });
 
 // Se define la ruta get "/menu/delete/:id" la cual va a ser utilizada por el servidor para eliminar los productos
@@ -320,6 +345,7 @@ function verificarAutenticacionPaginas(req,res,next){
 	}
 }
 
+// Función que encripta la contraseña del usuario
 function encriptarContrasena(text){
 	var cipher = crypto.createCipher(crypto_algorithm, crypto_password);
 	var crypted = cipher.update(text,'utf8','hex');
