@@ -265,32 +265,41 @@ app.post("/signup", function(req,res){
 	var local_password = req.body.password;
 	var local_confirm_password = req.body.confirm_password;
 
-	if (local_password == local_confirm_password){
-		var passwordEncriptada = encriptarContrasena(local_password);
-		User.findOne({username: local_username}, function(err,user){
-			if(!user){
-				var user = new User({
-					firstName: local_firstName,
-					lastName: local_lastName,
-					username: local_username,
-					password: passwordEncriptada
-				});
-				user.save(function(err){
-					res.redirect("/login");
-				});
-			}else{
-				res.render("signup", {
-					visualizacionError: '',
-					usuarioExistente: 'Usuario ya existe en la base de datos',
-					session: req.session.user,
-					sessionUserCompleteName: req.session.completeUserName
-				});
-			}
-		});
-	}else{
+	if (local_firstName != "" && local_lastName != "" && local_username != "" && local_password != "" && local_confirm_password != "") {
+		if (local_password == local_confirm_password){
+			var passwordEncriptada = encriptarContrasena(local_password);
+			User.findOne({username: local_username}, function(err,user){
+				if(!user){
+					var user = new User({
+						firstName: local_firstName,
+						lastName: local_lastName,
+						username: local_username,
+						password: passwordEncriptada
+					});
+					user.save(function(err){
+						res.redirect("/login");
+					});
+				}else{
+					res.render("signup", {
+						visualizacionError: '',
+						errorEncontrado: 'Usuario ya existe en la base de datos',
+						session: req.session.user,
+						sessionUserCompleteName: req.session.completeUserName
+					});
+				}
+			});
+		} else {
+			res.render("signup", {
+				visualizacionError: '',
+				errorEncontrado: 'Las contraseñas ingresadas no coinciden',
+				session: req.session.user,
+				sessionUserCompleteName: req.session.completeUserName
+			});
+		}
+	} else {
 		res.render("signup", {
 			visualizacionError: '',
-			usuarioExistente: 'Las contraseñas ingresadas no coinciden',
+			errorEncontrado: 'Debe digitar todos los campos',
 			session: req.session.user,
 			sessionUserCompleteName: req.session.completeUserName
 		});
