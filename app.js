@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(method_override("_method"));
 
 // Se utiliza el módulo Multer para poder subir las imágenes a la carpeta "uploads" temporalmente para luego subirlas a Cloudinary
-app.use(multer({dest: "../FoodFacilito/uploads"}));
+app.use(multer({dest: "./uploads"}));
 
 // Se va a utilizar la session para la autenticación de los usuarios
 app.use(session({
