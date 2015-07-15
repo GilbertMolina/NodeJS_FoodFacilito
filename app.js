@@ -265,7 +265,7 @@ app.post("/signup", function(req,res){
 	var local_password = req.body.password;
 	var local_confirm_password = req.body.confirm_password;
 
-	if (local_firstName != "" && local_lastName != "" && local_username != "" && local_password != "" && local_confirm_password != "") {
+	if (local_firstName !== "" && local_lastName !== "" && local_username !== "" && local_password !== "" && local_confirm_password !== "") {
 		if (local_password == local_confirm_password){
 			var passwordEncriptada = encriptarContrasena(local_password);
 			User.findOne({username: local_username}, function(err,user){
@@ -316,25 +316,35 @@ app.get("/login", function(req,res){
 });
 
 // Se define la ruta post "/login" la cual va a ser utilizada por el usuario para visualizar el formulario de iniciar sesión
+// Se define la ruta post "/login" la cual va a ser utilizada por el usuario para visualizar el formulario de iniciar sesión
 app.post("/login", function(req,res){
-	var local_username = req.body.username;
-	var local_password = req.body.password;
+    var local_username = req.body.username;
+    var local_password = req.body.password;
 
-	var passwordEncriptada = encriptarContrasena(local_password);
-	User.findOne({username: local_username, password: passwordEncriptada}, function(err,user){
-		if(user){
-			req.session.user = user.username;
-			req.session.completeUserName = user.firstName + " " + user.lastName;
-			res.redirect("/admin");
-		}else{
-			res.render("login", {
-				visualizacionError: '',
-				accesoErroneo: 'Usuario o contraseña erróneo',
-				session: req.session.user,
-				sessionUserCompleteName: req.session.completeUserName
-			});
-		}
-	});
+    if (local_username !== "" && local_password !== "") {
+        var passwordEncriptada = encriptarContrasena(local_password);
+        User.findOne({username: local_username, password: passwordEncriptada}, function(err,user){
+            if(user){
+                req.session.user = user.username;
+                req.session.completeUserName = user.firstName + " " + user.lastName;
+                res.redirect("/admin");
+            }else{
+                res.render("login", {
+                    visualizacionError: '',
+                    accesoErroneo: 'Usuario o contraseña erróneo',
+                    session: req.session.user,
+                    sessionUserCompleteName: req.session.completeUserName
+                });
+            }
+        });
+    } else {
+        res.render("login", {
+            visualizacionError: '',
+            accesoErroneo: 'Debe digitar todos los campos',
+            session: req.session.user,
+            sessionUserCompleteName: req.session.completeUserName
+        });
+    }
 });
 
 // Se define la ruta post "/login" la cual va a ser utilizada por el usuario para visualizar el formulario de registrar o iniciar sesión
