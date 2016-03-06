@@ -1,0 +1,26 @@
+{
+  "name": "NodeJS-FoodFacilito",
+  "version": "1.0.0",
+  "description": "Aplicación desarrollada en NodeJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Gilberth Molina",
+    "email": "gmolinac@outlook.com",
+    "url": "https://github.com/gilberthmolina"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.0",
+    "body-parser": "^1.13.1",
+    "cloudinary": "^1.2.1",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.3",
+    "mongoose": "^4.0.6",
+    "multer": "^0.1.8",
+    "express-session": "^1.11.3",
+    "crypto": "^0.0.3"
+  }
+}
